@@ -94,9 +94,9 @@ export const Screen3_Confirmation: React.FC<Screen3Props> = ({ onConfirm, data }
               <Pencil className="w-4 h-4 text-blue-500" />
               <span className="text-blue-600 font-bold text-xs uppercase tracking-widest">Input Required</span>
             </div>
-            <label className="block text-gray-900 font-bold text-lg mb-3">Average Annual Salary (CHF)</label>
+            <label className="block text-gray-900 font-bold text-lg mb-3">Average Annual Salary (EUR)</label>
             <div className="relative">
-              <span className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-xl">₣</span>
+              <span className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-xl">€</span>
               <input
                 type="text"
                 value={salary}

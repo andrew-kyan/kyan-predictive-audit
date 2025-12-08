@@ -11,19 +11,19 @@ const FEATURES = [
         id: 'dashboard',
         title: 'Strategic Rollout Planner',
         description: 'AI-driven insights map your campaign approaches across audiences and regions.',
-        image: '/feature-dashboard.jpg'
+        image: '/feature-dashboard.png'
     },
     {
         id: 'assets',
         title: 'Asset Generator',
         description: 'Instantly create on-brand flyers, emails, and posters tailored to each department.',
-        image: '/feature-assets.jpg'
+        image: '/feature-assets.png'
     },
     {
         id: 'timeline',
         title: 'Launch Timeline',
         description: 'Visualize your entire rollout schedule from awareness to activation and feedback.',
-        image: '/feature-timeline.jpg'
+        image: '/feature-timeline.png'
     }
 ];
 
