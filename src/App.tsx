@@ -5,6 +5,7 @@ import { Screen2_Loader } from './components/Screen2_Loader';
 import { Screen3_Confirmation } from './components/Screen3_Confirmation';
 import { Screen4_Vent } from './components/Screen4_Vent';
 import { Screen5_Sliders } from './components/Screen5_Sliders';
+import { Screen5b_Loader } from './components/Screen5b_Loader';
 import { Screen6_Iceberg } from './components/Screen6_Iceberg';
 import { Screen7_Gate } from './components/Screen7_Gate';
 import { MethodologyModal } from './components/MethodologyModal';
@@ -48,7 +49,8 @@ function App() {
       {step === 2 && <Screen2_Loader onComplete={() => setStep(3)} />}
       {step === 3 && <Screen3_Confirmation data={companyData} onConfirm={() => setStep(4)} />}
       {step === 4 && <Screen4_Vent onNext={() => setStep(5)} />}
-      {step === 5 && <Screen5_Sliders onNext={() => setStep(6)} />}
+      {step === 5 && <Screen5_Sliders onNext={() => setStep(5.5)} />}
+      {step === 5.5 && <Screen5b_Loader onComplete={() => setStep(6)} />}
       {step === 6 && <Screen6_Iceberg onNext={() => setStep(7)} />}
       {step === 7 && <Screen7_Gate onRestart={() => setStep(1)} />}
     </Layout>
