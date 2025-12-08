@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { X, ArrowRight, User } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface ModalProps {

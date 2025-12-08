@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
 
-export const Screen7_Gate = () => {
+interface Screen7Props {
+    onRestart: () => void;
+}
+
+export const Screen7_Gate: React.FC<Screen7Props> = ({ onRestart: _onRestart }) => {
     const [selectedDate, setSelectedDate] = useState<number>(25);
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
 
