@@ -9,7 +9,7 @@ interface Screen5Props {
 export const Screen5_Sliders: React.FC<Screen5Props> = ({ onNext }) => {
     const [vacationUtil, setVacationUtil] = useState(60);
     const [sickLeaveType, setSickLeaveType] = useState<'reactive' | 'post-deadline' | 'chronic'>('post-deadline');
-    const [trustGap, setTrustGap] = useState(50);
+    const [trustGapLevel, setTrustGapLevel] = useState<'aligned' | 'somewhat' | 'strongly'>('somewhat');
 
     // Dynamic risk calculation for Vacation Utilization
     const getVacationRisk = () => {
@@ -18,15 +18,7 @@ export const Screen5_Sliders: React.FC<Screen5Props> = ({ onNext }) => {
         return { label: 'High Risk', color: 'red' };
     };
 
-    // Dynamic risk calculation for Trust Gap
-    const getTrustGapRisk = () => {
-        if (trustGap < 20) return { label: 'Low Variance', color: 'green' };
-        if (trustGap < 40) return { label: 'Moderate Variance', color: 'orange' };
-        return { label: 'High Variance', color: 'red' };
-    };
-
     const vacationRisk = getVacationRisk();
-    const trustGapRisk = getTrustGapRisk();
 
     return (
         <div className="flex-grow flex flex-col items-center justify-center p-8 w-full max-w-5xl mx-auto z-10 pb-32">
@@ -150,51 +142,90 @@ export const Screen5_Sliders: React.FC<Screen5Props> = ({ onNext }) => {
                     )}
                 </div>
 
-                {/* 3. Trust Gap */}
+                {/* 3. Trust Gap - Forced Choice */}
                 <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <div className="flex justify-between items-start mb-8">
-                        <div className="flex items-center space-x-3">
-                            <div className="p-2 bg-purple-50 rounded-lg text-purple-500">
-                                <Zap className="w-6 h-6" />
-                            </div>
-                            <div>
-                                <h3 className="text-2xl font-bold text-gray-900">Trust Gap</h3>
-                                <p className="text-gray-500 text-sm mt-1">Sentiment variance between High Performers vs. Low Performers</p>
-                            </div>
+                    <div className="flex items-center space-x-3 mb-2">
+                        <div className="p-2 bg-purple-50 rounded-lg text-purple-500">
+                            <Zap className="w-6 h-6" />
                         </div>
-                        <span className={`px-4 py-2 rounded-lg text-sm font-bold tracking-wide uppercase border ${trustGapRisk.color === 'green' ? 'bg-green-50 text-green-600 border-green-100' :
-                                trustGapRisk.color === 'orange' ? 'bg-orange-50 text-orange-600 border-orange-100' :
-                                    'bg-red-50 text-red-600 border-red-100'
-                            }`}>
-                            {trustGapRisk.label}
-                        </span>
+                        <div>
+                            <h3 className="text-2xl font-bold text-gray-900">Trust Gap</h3>
+                            <p className="text-gray-500 text-sm mt-1">How aligned are perceptions between leadership and staff?</p>
+                        </div>
                     </div>
 
-                    <div className="relative pt-8 pb-4">
-                        <div className="relative h-4 rounded-full bg-gradient-to-r from-purple-500 via-purple-300 to-gray-200">
-                            <input
-                                type="range"
-                                min="0" max="100"
-                                value={trustGap}
-                                onChange={(e) => setTrustGap(Number(e.target.value))}
-                                className="absolute inset-0 w-full opacity-0 cursor-pointer z-30"
-                            />
-                            {/* Thumb */}
-                            <motion.div
-                                className="absolute top-1/2 -translate-y-1/2 w-8 h-8 bg-purple-600 rounded-full shadow-lg border-4 border-white cursor-grab active:cursor-grabbing z-20"
-                                style={{ left: `${trustGap}%`, x: '-50%' }}
-                            />
-                        </div>
-                        <div className="flex justify-between mt-4 font-bold text-sm">
-                            <span className="text-purple-700">Low Performers</span>
-                            <span className="text-gray-400">High Performers</span>
-                        </div>
+                    <div className="mt-6 grid md:grid-cols-3 gap-4">
+                        {/* Option 1: Strongly Misaligned */}
+                        <button
+                            onClick={() => setTrustGapLevel('strongly')}
+                            className={`p-6 rounded-2xl text-left border-2 transition-all ${trustGapLevel === 'strongly'
+                                    ? 'bg-red-50/30 border-red-500 ring-1 ring-red-500'
+                                    : 'bg-white border-gray-100 hover:border-red-200'
+                                }`}
+                        >
+                            <h4 className={`font-bold text-lg mb-2 ${trustGapLevel === 'strongly' ? 'text-red-600' : 'text-gray-900'}`}>
+                                Strongly misaligned
+                            </h4>
+                            <p className="text-sm text-gray-600">
+                                Leaders say things are great, staff report issues
+                            </p>
+                            {trustGapLevel === 'strongly' && (
+                                <div className="mt-3 flex items-center space-x-2">
+                                    <div className="flex-1 h-1 bg-red-500 rounded"></div>
+                                    <span className="text-xs text-red-600 font-bold uppercase">High Risk</span>
+                                </div>
+                            )}
+                        </button>
+
+                        {/* Option 2: Somewhat Misaligned */}
+                        <button
+                            onClick={() => setTrustGapLevel('somewhat')}
+                            className={`p-6 rounded-2xl text-left border-2 transition-all ${trustGapLevel === 'somewhat'
+                                    ? 'bg-orange-50/30 border-orange-500 ring-1 ring-orange-500'
+                                    : 'bg-white border-gray-100 hover:border-orange-200'
+                                }`}
+                        >
+                            <h4 className={`font-bold text-lg mb-2 ${trustGapLevel === 'somewhat' ? 'text-orange-600' : 'text-gray-900'}`}>
+                                Somewhat misaligned
+                            </h4>
+                            <p className="text-sm text-gray-600">
+                                Leaders are more positive than staff
+                            </p>
+                            {trustGapLevel === 'somewhat' && (
+                                <div className="mt-3 flex items-center space-x-2">
+                                    <div className="flex-1 h-1 bg-orange-500 rounded"></div>
+                                    <span className="text-xs text-orange-600 font-bold uppercase">Medium Risk</span>
+                                </div>
+                            )}
+                        </button>
+
+                        {/* Option 3: Aligned */}
+                        <button
+                            onClick={() => setTrustGapLevel('aligned')}
+                            className={`p-6 rounded-2xl text-left border-2 transition-all ${trustGapLevel === 'aligned'
+                                    ? 'bg-green-50/30 border-green-500 ring-1 ring-green-500'
+                                    : 'bg-white border-gray-100 hover:border-green-200'
+                                }`}
+                        >
+                            <h4 className={`font-bold text-lg mb-2 ${trustGapLevel === 'aligned' ? 'text-green-600' : 'text-gray-900'}`}>
+                                Aligned
+                            </h4>
+                            <p className="text-sm text-gray-600">
+                                Similar perceptions across levels
+                            </p>
+                            {trustGapLevel === 'aligned' && (
+                                <div className="mt-3 flex items-center space-x-2">
+                                    <div className="flex-1 h-1 bg-green-500 rounded"></div>
+                                    <span className="text-xs text-green-600 font-bold uppercase">Low Risk</span>
+                                </div>
+                            )}
+                        </button>
                     </div>
 
                     <div className="mt-8 bg-blue-50/50 rounded-xl p-4 flex items-start space-x-3">
                         <Info className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
                         <p className="text-sm text-blue-800">
-                            <strong>Why we ask:</strong> A high trust gap ({'>'} 30%) indicates that high performers see things very differently than struggling team members. This creates "invisible friction" where disengagement festers undetected in certain pockets of your organization.
+                            <strong>Why we ask:</strong> A strong divergence indicates a "two-speed culture" where problems remain invisible and disengagement accelerates.
                         </p>
                     </div>
                 </div>

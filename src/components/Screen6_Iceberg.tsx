@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Download, AlertTriangle, Layers, MessageSquare, Check, Loader2, Lock, ChevronLeft, ChevronRight, UserMinus, Hourglass, DollarSign, Wand2, Palette, CalendarCheck } from 'lucide-react';
+import { ArrowRight, Download, AlertTriangle, Layers, MessageSquare, Check, Loader2, Lock, ChevronLeft, ChevronRight, UserMinus, Hourglass, DollarSign, Wand2, Palette, CalendarCheck, MapPin, Leaf, Zap } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface Screen6Props {
@@ -24,6 +24,66 @@ const FEATURES = [
         title: 'Launch Timeline',
         description: 'Visualize your entire rollout schedule from awareness to activation and feedback.',
         image: '/feature-timeline.png'
+    }
+];
+
+
+// Context-Aware Signals (Swiss company example)
+const SIGNALS = [
+    {
+        date: 'Apr 14',
+        type: 'Local',
+        event: 'Zürich Marathon',
+        action: 'Physical Recovery Kit',
+        icon: MapPin,
+        color: 'red',
+        bg: 'bg-red-50',
+        textColor: 'text-red-600',
+        borderColor: 'border-red-200'
+    },
+    {
+        date: 'Oct 1',
+        type: 'Internal',
+        event: 'Q4 Sprint Kickoff',
+        action: 'Focus Time Blocker',
+        icon: Zap,
+        color: 'purple',
+        bg: 'bg-purple-50',
+        textColor: 'text-purple-600',
+        borderColor: 'border-purple-200'
+    },
+    {
+        date: 'Dec 15',
+        type: 'Seasonal',
+        event: 'Holiday Season',
+        action: 'Gratitude Campaign',
+        icon: Leaf,
+        color: 'green',
+        bg: 'bg-green-50',
+        textColor: 'text-green-600',
+        borderColor: 'border-green-200'
+    },
+    {
+        date: 'Jan 20',
+        type: 'Internal',
+        event: 'Annual Planning Week',
+        action: 'Mental Reset Program',
+        icon: Zap,
+        color: 'purple',
+        bg: 'bg-purple-50',
+        textColor: 'text-purple-600',
+        borderColor: 'border-purple-200'
+    },
+    {
+        date: 'Mar 5',
+        type: 'Local',
+        event: 'Basel Fasnacht',
+        action: 'Energy Recovery Kit',
+        icon: MapPin,
+        color: 'red',
+        bg: 'bg-red-50',
+        textColor: 'text-red-600',
+        borderColor: 'border-red-200'
     }
 ];
 
@@ -467,7 +527,7 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                 </div>
 
                 <p className="text-gray-500 text-lg mb-10 max-w-2xl leading-relaxed">
-                    We have automatically generated a <strong className="text-gray-900">Burnout Prevention Program</strong> tailored to your risk profile.
+                    Context-aware interventions deployed at the right time, automatically tailored to your risk profile and local events.
                 </p>
 
                 {/* Carousel */}
@@ -530,6 +590,152 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                         ))}
                     </div>
                 </div>
+
+                {/* Month Timeline Header + Horizontal Scrolling Timeline */}
+                <div className="relative w-full mb-16">
+                    {/* Timeline Visualization */}
+                    <div className="mb-8">
+                        {/* Year Label */}
+                        <div className="text-center mb-6">
+                            <h3 className="text-2xl font-bold text-gray-900">2025 Wellbeing Program Rollout</h3>
+                            <p className="text-gray-500 text-sm mt-1">Context-aware interventions deployed throughout the year</p>
+                        </div>
+
+                        {/* Timeline Bar Container */}
+                        <div className="relative px-8">
+                            {/* Background Timeline Bar */}
+                            <div className="relative h-2 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded-full mb-12">
+                                {/* Month Markers */}
+                                <div className="absolute inset-0 flex justify-between items-center px-2">
+                                    {['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'].map((month, idx) => (
+                                        <div key={idx} className="flex flex-col items-center">
+                                            <div className="w-0.5 h-3 bg-gray-300 -translate-y-2"></div>
+                                            <span className="text-[10px] text-gray-400 font-semibold mt-1">{month}</span>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Event Dots on Timeline */}
+                                {/* Jan 20 - Annual Planning Week */}
+                                <div className="absolute top-1/2 -translate-y-1/2" style={{ left: '5.5%' }}>
+                                    <div className="relative">
+                                        <div className="w-4 h-4 bg-purple-500 border-4 border-white rounded-full shadow-lg animate-pulse"></div>
+                                        <div className="absolute top-6 left-1/2 -translate-x-1/2 w-0.5 h-16 bg-purple-300 opacity-50"></div>
+                                    </div>
+                                </div>
+
+                                {/* Mar 5 - Basel Fasnacht */}
+                                <div className="absolute top-1/2 -translate-y-1/2" style={{ left: '19%' }}>
+                                    <div className="relative">
+                                        <div className="w-4 h-4 bg-red-500 border-4 border-white rounded-full shadow-lg animate-pulse"></div>
+                                        <div className="absolute top-6 left-1/2 -translate-x-1/2 w-0.5 h-16 bg-red-300 opacity-50"></div>
+                                    </div>
+                                </div>
+
+                                {/* Apr 14 - Zürich Marathon */}
+                                <div className="absolute top-1/2 -translate-y-1/2" style={{ left: '29%' }}>
+                                    <div className="relative">
+                                        <div className="w-4 h-4 bg-red-500 border-4 border-white rounded-full shadow-lg animate-pulse"></div>
+                                        <div className="absolute top-6 left-1/2 -translate-x-1/2 w-0.5 h-16 bg-red-300 opacity-50"></div>
+                                    </div>
+                                </div>
+
+                                {/* Oct 1 - Q4 Sprint */}
+                                <div className="absolute top-1/2 -translate-y-1/2" style={{ left: '75%' }}>
+                                    <div className="relative">
+                                        <div className="w-4 h-4 bg-purple-500 border-4 border-white rounded-full shadow-lg animate-pulse"></div>
+                                        <div className="absolute top-6 left-1/2 -translate-x-1/2 w-0.5 h-16 bg-purple-300 opacity-50"></div>
+                                    </div>
+                                </div>
+
+                                {/* Dec 15 - Holiday Season */}
+                                <div className="absolute top-1/2 -translate-y-1/2" style={{ left: '95%' }}>
+                                    <div className="relative">
+                                        <div className="w-4 h-4 bg-green-500 border-4 border-white rounded-full shadow-lg animate-pulse"></div>
+                                        <div className="absolute top-6 left-1/2 -translate-x-1/2 w-0.5 h-16 bg-green-300 opacity-50"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Timeline Legend */}
+                            <div className="flex justify-center items-center space-x-6 text-xs mt-6">
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                                    <span className="text-gray-600">Local Events</span>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                                    <span className="text-gray-600">Internal Milestones</span>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                                    <span className="text-gray-600">Seasonal Moments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4">
+                        <div className="flex space-x-6 px-2">
+                            {SIGNALS.map((signal, index) => {
+                                const IconComponent = signal.icon;
+                                return (
+                                    <div
+                                        key={index}
+                                        className="snap-center flex-shrink-0 w-80 bg-white rounded-2xl shadow-sm border-2 border-gray-100 hover:shadow-md transition-all overflow-hidden"
+                                    >
+                                        {/* Header: Signal Type Badge + Date */}
+                                        <div className={`${signal.bg} ${signal.borderColor} border-b-2 p-4 flex items-center justify-between`}>
+                                            <div className="flex items-center space-x-2">
+                                                <IconComponent className={`w-4 h-4 ${signal.textColor}`} />
+                                                <span className={`text-xs font-bold uppercase tracking-widest ${signal.textColor}`}>
+                                                    {signal.type} Signal
+                                                </span>
+                                            </div>
+                                            <span className="text-xs font-semibold text-gray-500">{signal.date}</span>
+                                        </div>
+
+                                        {/* Body: Event Name */}
+                                        <div className="p-6">
+                                            <h4 className="text-xl font-bold text-gray-900 mb-2">{signal.event}</h4>
+                                            <p className="text-sm text-gray-500">
+                                                {signal.type === 'Local' && 'Community event creates physical demand'}
+                                                {signal.type === 'Internal' && 'High-intensity work period detected'}
+                                                {signal.type === 'Seasonal' && 'Cultural moment for team connection'}
+                                            </p>
+                                        </div>
+
+                                        {/* Footer: Deploy Action */}
+                                        <div className="px-6 pb-6">
+                                            <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center space-x-3">
+                                                        <div className={`p-2 ${signal.bg} rounded-lg`}>
+                                                            <Wand2 className={`w-4 h-4 ${signal.textColor}`} />
+                                                        </div>
+                                                        <div>
+                                                            <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide">Deploy</p>
+                                                            <p className="text-sm font-bold text-gray-900">{signal.action}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* Scroll Hint */}
+                    <div className="flex justify-center mt-4">
+                        <div className="flex items-center space-x-2 text-gray-400 text-xs">
+                            <ChevronLeft className="w-3 h-3" />
+                            <span>Scroll to see more signals</span>
+                            <ChevronRight className="w-3 h-3" />
+                        </div>
+                    </div>
+                </div>
+
 
                 {/* Feature Deep Dive Section */}
                 <div className="w-full mt-16">
