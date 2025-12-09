@@ -733,79 +733,103 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                         <div className="flex-grow border-t border-gray-200"></div>
                     </div>
 
-                    {/* Single Consolidated Feature Card */}
-                    <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-10 md:p-12">
-                        <div className="text-center mb-10">
-                            <h3 className="text-3xl font-bold text-gray-900 mb-3">Complete Wellbeing Platform</h3>
-                            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-                                Everything you need to launch, manage, and scale your organizational health program
-                            </p>
+                    {/* Single Consolidated Feature Card - Iceberg Style */}
+                    <div className="w-full relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100">
+
+                        {/* Split Background - Light top, dark bottom like iceberg */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-indigo-50 to-indigo-100 h-[30%] z-0"></div>
+                        <div className="absolute inset-0 top-[30%] bg-gradient-to-b from-[#1e1b4b] via-[#312e81] to-[#1e1b4b] z-0"></div>
+
+                        {/* Animated Wave Separator */}
+                        <div className="absolute top-[30%] left-0 right-0 -translate-y-1/2 z-10">
+                            <svg className="w-full h-12 md:h-20 fill-[#1e1b4b]" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                                <motion.path
+                                    animate={{
+                                        d: [
+                                            "M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
+                                            "M0,128L48,122.7C96,117,192,107,288,112C384,117,480,139,576,149.3C672,160,768,160,864,149.3C960,139,1056,117,1152,112C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
+                                            "M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                                        ]
+                                    }}
+                                    transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+                                />
+                            </svg>
                         </div>
 
-                        <div className="space-y-8">
-                            {/* Feature 1: AI Asset Studio */}
-                            <div className="flex flex-col md:flex-row items-start gap-6 p-6 rounded-2xl hover:bg-gray-50 transition-colors">
-                                <div className="flex-shrink-0">
-                                    <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                        <Wand2 className="w-10 h-10 text-white" />
-                                    </div>
+                        {/* Abstract Floating Shapes */}
+                        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                            {/* Glowing orb top-right */}
+                            <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-purple-400/30 to-pink-400/20 rounded-full blur-2xl"></div>
+                            {/* Glowing orb bottom-left */}
+                            <div className="absolute bottom-20 left-10 w-40 h-40 bg-gradient-to-br from-cyan-400/20 to-blue-400/30 rounded-full blur-3xl"></div>
+                        </div>
+
+                        <div className="relative z-10 p-10 md:p-12 min-h-[600px] flex flex-col">
+
+                            {/* Header on light section */}
+                            <div className="text-center mb-12">
+                                <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-indigo-200 mb-4">
+                                    <Layers className="w-4 h-4 text-indigo-600" />
+                                    <span className="text-indigo-600 text-xs font-bold uppercase tracking-widest">Kyan Engage</span>
                                 </div>
-                                <div className="flex-1">
-                                    <h4 className="text-2xl font-bold text-gray-900 mb-2">AI Asset Studio</h4>
-                                    <p className="text-gray-600 mb-3 leading-relaxed">
-                                        Instantly create posters, slide decks, and emails. Generate on-brand content in seconds with AI-powered design tools.
-                                    </p>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">Posters</span>
-                                        <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">Slide Decks</span>
-                                        <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">Email Templates</span>
-                                    </div>
-                                </div>
+                                <h3 className="text-3xl md:text-4xl font-black text-gray-900 mb-2 tracking-tight">Complete Wellbeing Platform</h3>
+                                <p className="text-indigo-600/70 text-lg max-w-2xl mx-auto font-medium">
+                                    Everything you need to launch and scale
+                                </p>
                             </div>
 
-                            <div className="border-t border-gray-200"></div>
+                            {/* Features on dark section with glassmorphism */}
+                            <div className="flex-1 grid md:grid-cols-3 gap-6 mt-8">
 
-                            {/* Feature 2: Smart Rollout */}
-                            <div className="flex flex-col md:flex-row items-start gap-6 p-6 rounded-2xl hover:bg-gray-50 transition-colors">
-                                <div className="flex-shrink-0">
-                                    <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                        <CalendarCheck className="w-10 h-10 text-white" />
+                                {/* Feature 1: AI Asset Studio */}
+                                <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all group">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-blue-500/40 group-hover:shadow-blue-500/60 transition-shadow">
+                                        <Wand2 className="w-8 h-8 text-white" />
                                     </div>
-                                </div>
-                                <div className="flex-1">
-                                    <h4 className="text-2xl font-bold text-gray-900 mb-2">Smart Rollout</h4>
-                                    <p className="text-gray-600 mb-3 leading-relaxed">
-                                        Pre-built 4-week implementation timeline. Launch faster with proven templates and automated scheduling.
+                                    <h4 className="text-xl font-bold text-white mb-2">AI Asset Studio</h4>
+                                    <p className="text-blue-200/80 text-sm leading-relaxed mb-4">
+                                        Instantly create posters, decks, and emails with AI-powered design tools.
                                     </p>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Week 1: Launch</span>
-                                        <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Week 2: Activate</span>
-                                        <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Week 3: Engage</span>
-                                        <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Week 4: Measure</span>
+                                        <span className="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold rounded border border-cyan-500/30 shadow-[0_0_10px_rgba(34,211,238,0.2)]">Posters</span>
+                                        <span className="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold rounded border border-cyan-500/30 shadow-[0_0_10px_rgba(34,211,238,0.2)]">Slides</span>
+                                        <span className="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold rounded border border-cyan-500/30 shadow-[0_0_10px_rgba(34,211,238,0.2)]">Emails</span>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="border-t border-gray-200"></div>
-
-                            {/* Feature 3: Co-Branded Hub */}
-                            <div className="flex flex-col md:flex-row items-start gap-6 p-6 rounded-2xl hover:bg-gray-50 transition-colors">
-                                <div className="flex-shrink-0">
-                                    <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                        <Palette className="w-10 h-10 text-white" />
+                                {/* Feature 2: Smart Rollout */}
+                                <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all group">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-purple-500/40 group-hover:shadow-purple-500/60 transition-shadow">
+                                        <CalendarCheck className="w-8 h-8 text-white" />
                                     </div>
-                                </div>
-                                <div className="flex-1">
-                                    <h4 className="text-2xl font-bold text-gray-900 mb-2">Co-Branded Hub</h4>
-                                    <p className="text-gray-600 mb-3 leading-relaxed">
-                                        Your logo and tone applied automatically. Maintain brand consistency across all employee communications.
+                                    <h4 className="text-xl font-bold text-white mb-2">Smart Rollout</h4>
+                                    <p className="text-blue-200/80 text-sm leading-relaxed mb-4">
+                                        Pre-built 4-week timeline. Launch faster with proven templates.
                                     </p>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full">Custom Branding</span>
-                                        <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full">Tone Control</span>
-                                        <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full">White Label</span>
+                                        <span className="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold rounded border border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.2)]">Week 1</span>
+                                        <span className="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold rounded border border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.2)]">Week 2</span>
+                                        <span className="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold rounded border border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.2)]">Week 3</span>
+                                        <span className="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold rounded border border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.2)]">Week 4</span>
                                     </div>
                                 </div>
+
+                                {/* Feature 3: Co-Branded Hub */}
+                                <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all group">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-400 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-orange-500/40 group-hover:shadow-orange-500/60 transition-shadow">
+                                        <Palette className="w-8 h-8 text-white" />
+                                    </div>
+                                    <h4 className="text-xl font-bold text-white mb-2">Co-Branded Hub</h4>
+                                    <p className="text-blue-200/80 text-sm leading-relaxed mb-4">
+                                        Your logo and tone applied automatically across all comms.
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        <span className="px-2 py-1 bg-orange-500/20 text-orange-300 text-[10px] font-bold rounded border border-orange-500/30 shadow-[0_0_10px_rgba(249,115,22,0.2)]">Branding</span>
+                                        <span className="px-2 py-1 bg-orange-500/20 text-orange-300 text-[10px] font-bold rounded border border-orange-500/30 shadow-[0_0_10px_rgba(249,115,22,0.2)]">Tone</span>
+                                        <span className="px-2 py-1 bg-orange-500/20 text-orange-300 text-[10px] font-bold rounded border border-orange-500/30 shadow-[0_0_10px_rgba(249,115,22,0.2)]">White Label</span>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
