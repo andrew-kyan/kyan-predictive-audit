@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Download, TrendingUp, AlertTriangle, Layers, MessageSquare, Check, Loader2, Lock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Download, AlertTriangle, Layers, MessageSquare, Check, Loader2, Lock, ChevronLeft, ChevronRight, UserMinus, Hourglass, DollarSign, Wand2, Palette, CalendarCheck } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface Screen6Props {
@@ -27,12 +27,43 @@ const FEATURES = [
     }
 ];
 
+// Cost multipliers and baseline metrics
+const COST_MULTIPLIERS = {
+    avg_days_lost: 14, // industry baseline days lost per employee
+    presenteeism_multiplier: 6.6,
+    base_attrition: 0.12 // 12% baseline attrition
+};
+
 export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
     const [emailStatus, setEmailStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
     const [userData, setUserData] = useState({ name: '', email: '' });
     const isFormValid = userData.name.trim().length > 0 && userData.email.includes('@');
 
     const [currentFeature, setCurrentFeature] = useState(0);
+
+    // Mock data - in real app this would come from previous screens
+    const headcount = 250;
+    const avgSalary = 110000;
+
+    // Risk factors (mock - would come from Screen 5)
+    const vacationUtil = 60; // 60% utilization = moderate risk
+    const trustGap = 50; // 50% gap = high variance
+    const burnoutRisk = 0.4; // Based on sick leave pattern
+
+    // Triple Bottom Line Calculations
+    const totalRiskProfile = (100 - vacationUtil) / 100; // Higher risk when vacation util is low
+    const fatigueMultiplier = 1 + burnoutRisk;
+
+    const daysLostPerEmployee = Math.round(
+        COST_MULTIPLIERS.avg_days_lost * totalRiskProfile * fatigueMultiplier * 1.8
+    );
+
+    const employeesAtRisk = Math.round(
+        headcount * COST_MULTIPLIERS.base_attrition * (1 + burnoutRisk + (trustGap / 100))
+    );
+
+    const costPerEmployee = Math.round((avgSalary / 220) * daysLostPerEmployee);
+    const totalCost = costPerEmployee * headcount;
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -70,37 +101,71 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                         </div>
                     </div>
 
-                    <div className="inline-flex items-center space-x-2 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
-                        <TrendingUp className="w-4 h-4" />
-                        <span>AI Context: High Growth / Tech</span>
-                    </div>
+
                     <h1 className="text-5xl md:text-6xl font-bold text-gray-900 tracking-tight mb-2">Organizational <br /> Health Audit</h1>
                     <p className="text-gray-500 text-lg">Analysis based on 250 employees in the Technology sector.</p>
                 </div>
 
             </div>
 
-            {/* Benchmark Cards */}
-            <div className="w-full grid md:grid-cols-2 gap-6 mb-12">
-                {/* Industry Benchmark */}
-                <div className="bg-white rounded-[2rem] p-10 shadow-sm border border-gray-100">
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-4">Industry Benchmark</span>
-                    <div className="flex items-baseline space-x-2">
-                        <span className="text-5xl font-bold text-gray-900">€1,200</span>
-                        <span className="text-gray-500 font-medium text-xl">/ employee</span>
-                    </div>
-                </div>
+            {/* Triple Bottom Line Dashboard */}
+            <div className="w-full bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100 mb-12">
+                <div className="grid md:grid-cols-3 divide-x divide-gray-100">
 
-                {/* Your Risk */}
-                <div className="bg-white rounded-[2rem] p-10 shadow-sm border border-red-100 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-6 opacity-5">
-                        <AlertTriangle className="w-32 h-32 text-red-500" />
+                    {/* Financial (CFO) */}
+                    <div className="px-6 py-4">
+                        <div className="flex items-center space-x-2 mb-4">
+                            <div className="p-2 bg-blue-50 rounded-lg">
+                                <DollarSign className="w-5 h-5 text-blue-600" />
+                            </div>
+                            <div>
+                                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block">Financial</span>
+                                <span className="text-sm font-bold text-gray-900">Cost of Inaction</span>
+                            </div>
+                        </div>
+                        <div className="flex items-baseline space-x-2">
+                            <span className="text-4xl font-bold text-blue-600">€{Math.round(totalCost / 1000)}k</span>
+                            <span className="text-gray-400 font-medium text-sm">/ year</span>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-2">Based on {headcount} employees</p>
                     </div>
-                    <span className="text-xs font-bold text-red-500 uppercase tracking-widest block mb-4">Your Risk Assessment</span>
-                    <div className="flex items-baseline space-x-2">
-                        <span className="text-6xl font-bold text-red-500">€1,291</span>
-                        <span className="text-red-400 font-medium text-xl">/ employee</span>
+
+                    {/* Operational (COO) */}
+                    <div className="px-6 py-4">
+                        <div className="flex items-center space-x-2 mb-4">
+                            <div className="p-2 bg-orange-50 rounded-lg">
+                                <Hourglass className="w-5 h-5 text-orange-600" />
+                            </div>
+                            <div>
+                                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block">Operational</span>
+                                <span className="text-sm font-bold text-gray-900">Productivity Loss</span>
+                            </div>
+                        </div>
+                        <div className="flex items-baseline space-x-2">
+                            <span className="text-4xl font-bold text-orange-600">{daysLostPerEmployee}</span>
+                            <span className="text-gray-400 font-medium text-sm">days / employee</span>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-2">Annual avg per person</p>
                     </div>
+
+                    {/* Human (CHRO) */}
+                    <div className="px-6 py-4">
+                        <div className="flex items-center space-x-2 mb-4">
+                            <div className="p-2 bg-red-50 rounded-lg">
+                                <UserMinus className="w-5 h-5 text-red-600" />
+                            </div>
+                            <div>
+                                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block">Human</span>
+                                <span className="text-sm font-bold text-gray-900">Attrition Risk</span>
+                            </div>
+                        </div>
+                        <div className="flex items-baseline space-x-2">
+                            <span className="text-4xl font-bold text-red-600">{employeesAtRisk}</span>
+                            <span className="text-gray-400 font-medium text-sm">employees</span>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-2">At risk next 12 months</p>
+                    </div>
+
                 </div>
             </div>
 
@@ -185,6 +250,208 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                 </div>
             </div>
 
+            {/* Get Your Detailed Plan Section - Combined with Report Teaser */}
+            <div className="w-full bg-white rounded-[2rem] p-12 shadow-lg border border-gray-100 mb-16 relative overflow-hidden min-h-[700px]">
+
+                {/* Blurred Report Teaser Background */}
+                <div className={`absolute inset-0 p-12 transition-all duration-700 ${!isFormValid ? 'blur-[2px] opacity-70' : 'blur-0 opacity-100 pointer-events-none'}`}>
+                    {/* Mock Report Layout */}
+                    <div className="space-y-8">
+                        {/* Report Title */}
+                        <div className="border-b-2 border-gray-300 pb-4">
+                            <div className="bg-gradient-to-r from-blue-600 to-purple-600 h-10 w-2/3 rounded mb-2"></div>
+                            <div className="bg-gray-400 h-5 w-1/2 rounded"></div>
+                        </div>
+
+                        {/* Executive Summary Section */}
+                        <div className="space-y-3">
+                            <div className="bg-gray-700 h-6 w-48 rounded"></div>
+                            <div className="bg-gray-400 h-3 w-full rounded"></div>
+                            <div className="bg-gray-400 h-3 w-11/12 rounded"></div>
+                            <div className="bg-gray-400 h-3 w-10/12 rounded"></div>
+                        </div>
+
+                        {/* Section 1: Departmental Risk Heatmap */}
+                        <div className="border-2 border-gray-300 rounded-xl p-6 bg-white/50">
+                            <div className="bg-gray-700 h-6 w-64 rounded mb-4"></div>
+                            <div className="grid grid-cols-4 gap-4 mb-4">
+                                <div className="space-y-2">
+                                    <div className="bg-gray-500 h-4 w-full rounded text-xs"></div>
+                                    <div className="bg-red-400 h-24 rounded-lg flex items-center justify-center">
+                                        <span className="text-white font-bold text-2xl opacity-60">72%</span>
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <div className="bg-gray-500 h-4 w-full rounded"></div>
+                                    <div className="bg-orange-400 h-24 rounded-lg flex items-center justify-center">
+                                        <span className="text-white font-bold text-2xl opacity-60">58%</span>
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <div className="bg-gray-500 h-4 w-full rounded"></div>
+                                    <div className="bg-yellow-400 h-24 rounded-lg flex items-center justify-center">
+                                        <span className="text-white font-bold text-2xl opacity-60">43%</span>
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <div className="bg-gray-500 h-4 w-full rounded"></div>
+                                    <div className="bg-green-400 h-24 rounded-lg flex items-center justify-center">
+                                        <span className="text-white font-bold text-2xl opacity-60">21%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-4 gap-4 text-xs">
+                                <div className="bg-gray-300 h-3 rounded"></div>
+                                <div className="bg-gray-300 h-3 rounded"></div>
+                                <div className="bg-gray-300 h-3 rounded"></div>
+                                <div className="bg-gray-300 h-3 rounded"></div>
+                            </div>
+                        </div>
+
+                        {/* Section 2: Industry Benchmarks Comparison */}
+                        <div className="border-2 border-gray-300 rounded-xl p-6 bg-white/50">
+                            <div className="bg-gray-700 h-6 w-56 rounded mb-6"></div>
+                            <div className="flex items-end justify-between h-40 gap-3">
+                                <div className="flex-1 space-y-1">
+                                    <div className="bg-blue-400 w-full rounded-t" style={{ height: '60%' }}></div>
+                                    <div className="bg-gray-400 h-3 w-full rounded"></div>
+                                </div>
+                                <div className="flex-1 space-y-1">
+                                    <div className="bg-blue-500 w-full rounded-t" style={{ height: '85%' }}></div>
+                                    <div className="bg-gray-400 h-3 w-full rounded"></div>
+                                </div>
+                                <div className="flex-1 space-y-1">
+                                    <div className="bg-blue-600 w-full rounded-t" style={{ height: '100%' }}></div>
+                                    <div className="bg-gray-400 h-3 w-full rounded"></div>
+                                </div>
+                                <div className="flex-1 space-y-1">
+                                    <div className="bg-purple-500 w-full rounded-t" style={{ height: '75%' }}></div>
+                                    <div className="bg-gray-400 h-3 w-full rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Section 3: Key Performance Indicators */}
+                        <div className="grid grid-cols-3 gap-6">
+                            <div className="border-2 border-gray-300 rounded-lg p-5 bg-gradient-to-br from-blue-50 to-blue-100">
+                                <div className="bg-gray-500 h-3 w-24 rounded mb-3"></div>
+                                <div className="bg-blue-600 h-12 w-20 rounded mb-2 flex items-center justify-center">
+                                    <span className="text-white font-bold text-xl">€2.1M</span>
+                                </div>
+                                <div className="bg-gray-400 h-2 w-16 rounded"></div>
+                            </div>
+                            <div className="border-2 border-gray-300 rounded-lg p-5 bg-gradient-to-br from-orange-50 to-orange-100">
+                                <div className="bg-gray-500 h-3 w-24 rounded mb-3"></div>
+                                <div className="bg-orange-600 h-12 w-20 rounded mb-2 flex items-center justify-center">
+                                    <span className="text-white font-bold text-xl">18d</span>
+                                </div>
+                                <div className="bg-gray-400 h-2 w-16 rounded"></div>
+                            </div>
+                            <div className="border-2 border-gray-300 rounded-lg p-5 bg-gradient-to-br from-red-50 to-red-100">
+                                <div className="bg-gray-500 h-3 w-24 rounded mb-3"></div>
+                                <div className="bg-red-600 h-12 w-20 rounded mb-2 flex items-center justify-center">
+                                    <span className="text-white font-bold text-xl">42</span>
+                                </div>
+                                <div className="bg-gray-400 h-2 w-16 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Overlay Content */}
+                <div className="relative z-10 flex items-center justify-center min-h-[650px]">
+                    <AnimatePresence mode="wait">
+                        {!isFormValid ? (
+                            <motion.div
+                                key="gate-form"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                className="w-full max-w-3xl backdrop-blur-md bg-white/90 rounded-2xl p-10 border-2 border-gray-300 shadow-2xl"
+                            >
+                                <div className="text-center mb-6">
+                                    <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-full mb-4">
+                                        <Lock className="w-10 h-10 text-blue-600" />
+                                    </div>
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">What's next?</span>
+                                    <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Unlock Your Detailed Report</h3>
+                                    <p className="text-base text-gray-600">Includes Departmental Heatmaps, Industry Benchmarks & Cost Breakdown</p>
+                                </div>
+                                <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-4 text-center md:text-left">
+                                    <div className="flex-grow text-2xl md:text-3xl font-medium text-gray-400 leading-relaxed md:leading-normal">
+                                        <span className="">I'm </span>
+                                        <div className="inline-block relative group mx-2">
+                                            <input
+                                                type="text"
+                                                placeholder="your name"
+                                                value={userData.name}
+                                                onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+                                                className="w-40 md:w-48 bg-white border-b-2 border-gray-300 focus:border-blue-600 outline-none text-black placeholder:text-gray-300 transition-colors py-1 text-center md:text-left rounded px-2"
+                                            />
+                                        </div>
+                                        <span className="block md:inline mt-2 md:mt-0">
+                                            and you can reach me at
+                                        </span>
+                                        <div className="inline-block relative group mx-2 mt-2 md:mt-0">
+                                            <input
+                                                type="email"
+                                                placeholder="your@email.com"
+                                                value={userData.email}
+                                                onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+                                                className="w-56 md:w-64 bg-white border-b-2 border-gray-300 focus:border-blue-600 outline-none text-black placeholder:text-gray-300 transition-colors py-1 text-center md:text-left rounded px-2"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                key="gate-actions"
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="flex gap-4 md:flex-row flex-col w-full"
+                            >
+                                <button
+                                    onClick={handleSendReport}
+                                    disabled={emailStatus !== 'idle'}
+                                    className={`flex-1 py-4 rounded-xl border-2 font-bold text-lg transition-all flex items-center justify-center ${emailStatus === 'sent'
+                                        ? 'bg-green-50 border-green-300 text-green-700'
+                                        : 'border-gray-300 text-gray-700 hover:bg-gray-50 bg-white'
+                                        }`}
+                                >
+                                    {emailStatus === 'idle' && (
+                                        <>
+                                            <Download className="w-5 h-5 mr-3" />
+                                            Send Report to {userData.email}
+                                        </>
+                                    )}
+                                    {emailStatus === 'sending' && (
+                                        <>
+                                            <Loader2 className="w-5 h-5 mr-3 animate-spin" />
+                                            Sending...
+                                        </>
+                                    )}
+                                    {emailStatus === 'sent' && (
+                                        <>
+                                            <Check className="w-5 h-5 mr-3" />
+                                            Report Sent!
+                                        </>
+                                    )}
+                                </button>
+                                <button
+                                    onClick={onNext}
+                                    className="flex-[2] py-4 rounded-xl bg-black text-white font-bold text-lg hover:bg-zinc-800 transition-all shadow-xl hover:shadow-2xl flex items-center justify-center group"
+                                >
+                                    <MessageSquare className="w-5 h-5 mr-3" />
+                                    Book deployment talk as {userData.name}
+                                    <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
+                                </button>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </div>
+
             {/* Recommendations / Kyan Engage Carousel */}
             <div className="w-full border-t border-gray-200 pt-16">
                 <div className="flex items-center justify-between mb-8">
@@ -192,7 +459,7 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                         <div className="w-12 h-12 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-xl flex items-center justify-center text-white shadow-lg">
                             <Layers className="w-6 h-6" />
                         </div>
-                        <h2 className="text-3xl font-bold text-gray-900">Kyan Engage</h2>
+                        <h2 className="text-3xl font-bold text-gray-900">How we fix this? Introducing Kyan Engage</h2>
                     </div>
                     <span className="bg-green-100 text-green-700 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-widest border border-green-200">
                         Ready to Deploy
@@ -264,99 +531,69 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                     </div>
                 </div>
 
-                {/* CTAs */}
-                {/* Dynamic Footer / Gate */}
-                <div className="w-full bg-white/95 backdrop-blur-xl border-t border-gray-100 pt-8 pb-10 sticky bottom-0 z-40 -mx-4 md:-mx-8 px-4 md:px-8 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)]">
-                    <AnimatePresence mode="wait">
-                        {!isFormValid ? (
-                            <motion.div
-                                key="gate-form"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                className="w-full max-w-3xl mx-auto"
-                            >
-                                <div className="text-center mb-8">
-                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">What's next?</span>
-                                    <h3 className="text-xl md:text-2xl font-bold text-gray-900">Get your detailed plan</h3>
-                                </div>
-                                <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-4 text-center md:text-left">
-                                    <div className="flex-grow text-2xl md:text-3xl font-medium text-gray-400 leading-relaxed md:leading-normal">
-                                        <span className="">I'm </span>
-                                        <div className="inline-block relative group mx-2">
-                                            <input
-                                                type="text"
-                                                placeholder="your name"
-                                                value={userData.name}
-                                                onChange={(e) => setUserData({ ...userData, name: e.target.value })}
-                                                className="w-40 md:w-48 bg-transparent border-b-2 border-gray-200 focus:border-black outline-none text-black placeholder:text-gray-300 transition-colors py-1 text-center md:text-left"
-                                            />
-                                            <div className="absolute bottom-0 left-0 w-full h-0.5 bg-black scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-                                        </div>
-                                        <span className="block md:inline mt-2 md:mt-0">
-                                            and you can reach me at
-                                        </span>
-                                        <div className="inline-block relative group mx-2 mt-2 md:mt-0">
-                                            <input
-                                                type="email"
-                                                placeholder="your@email.com"
-                                                value={userData.email}
-                                                onChange={(e) => setUserData({ ...userData, email: e.target.value })}
-                                                className="w-56 md:w-64 bg-transparent border-b-2 border-gray-200 focus:border-black outline-none text-black placeholder:text-gray-300 transition-colors py-1 text-center md:text-left"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="hidden md:flex items-center justify-center bg-gray-100 w-12 h-12 rounded-full">
-                                        <Lock className="w-5 h-5 text-gray-400" />
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ) : (
-                            <motion.div
-                                key="gate-actions"
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="flex gap-4 md:flex-row flex-col w-full max-w-4xl mx-auto"
-                            >
-                                <button
-                                    onClick={handleSendReport}
-                                    disabled={emailStatus !== 'idle'}
-                                    className={`flex-1 py-4 rounded-xl border font-bold text-lg transition-all flex items-center justify-center ${emailStatus === 'sent'
-                                        ? 'bg-green-50 border-green-200 text-green-700'
-                                        : 'border-gray-200 text-gray-700 hover:bg-gray-50'
-                                        }`}
-                                >
-                                    {emailStatus === 'idle' && (
-                                        <>
-                                            <Download className="w-5 h-5 mr-3" />
-                                            Send Report to {userData.email}
-                                        </>
-                                    )}
-                                    {emailStatus === 'sending' && (
-                                        <>
-                                            <Loader2 className="w-5 h-5 mr-3 animate-spin" />
-                                            Sending...
-                                        </>
-                                    )}
-                                    {emailStatus === 'sent' && (
-                                        <>
-                                            <Check className="w-5 h-5 mr-3" />
-                                            Report Sent!
-                                        </>
-                                    )}
-                                </button>
-                                <button
-                                    onClick={onNext}
-                                    className="flex-[2] py-4 rounded-xl bg-black text-white font-bold text-lg hover:bg-zinc-800 transition-all shadow-xl hover:shadow-2xl flex items-center justify-center group"
-                                >
-                                    <MessageSquare className="w-5 h-5 mr-3" />
-                                    Book deployment talk as {userData.name}
-                                    <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
-                                </button>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                {/* Feature Deep Dive Section */}
+                <div className="w-full mt-16">
+                    {/* Divider with "Powered By" */}
+                    <div className="relative flex items-center justify-center mb-10">
+                        <div className="flex-grow border-t border-gray-200"></div>
+                        <span className="px-4 text-[10px] uppercase tracking-widest text-gray-400 font-bold">Powered By</span>
+                        <div className="flex-grow border-t border-gray-200"></div>
+                    </div>
+
+                    {/* Feature Cards Grid */}
+                    <div className="grid md:grid-cols-3 gap-6">
+
+                        {/* Card 1: AI Asset Studio */}
+                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all hover:-translate-y-1">
+                            <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                                <Wand2 className="w-7 h-7 text-blue-600" />
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">AI Asset Studio</h3>
+                            <p className="text-gray-500 text-sm leading-relaxed mb-3">
+                                Instantly create posters, slide decks, and emails.
+                            </p>
+                            <div className="pt-3 border-t border-gray-100">
+                                <p className="text-xs text-blue-600 font-semibold">
+                                    Generate on-brand content in seconds with AI-powered design tools
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Card 2: Smart Rollout */}
+                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all hover:-translate-y-1">
+                            <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                                <CalendarCheck className="w-7 h-7 text-purple-600" />
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Smart Rollout</h3>
+                            <p className="text-gray-500 text-sm leading-relaxed mb-3">
+                                Pre-built 4-week implementation timeline.
+                            </p>
+                            <div className="pt-3 border-t border-gray-100">
+                                <p className="text-xs text-purple-600 font-semibold">
+                                    Launch faster with proven templates and automated scheduling
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Card 3: Co-Branded Hub */}
+                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all hover:-translate-y-1">
+                            <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+                                <Palette className="w-7 h-7 text-orange-600" />
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Co-Branded Hub</h3>
+                            <p className="text-gray-500 text-sm leading-relaxed mb-3">
+                                Your logo and tone applied automatically.
+                            </p>
+                            <div className="pt-3 border-t border-gray-100">
+                                <p className="text-xs text-orange-600 font-semibold">
+                                    Maintain brand consistency across all employee communications
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+
 
             </div>
 

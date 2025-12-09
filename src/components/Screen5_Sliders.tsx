@@ -131,19 +131,19 @@ export const Screen5_Sliders: React.FC<Screen5Props> = ({ onNext }) => {
                 </div>
 
                 {/* 3. Trust Gap */}
-                <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100">
-                    <div className="flex justify-between items-center mb-8">
+                <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div className="flex justify-between items-start mb-8">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-purple-50 rounded-lg text-purple-500">
                                 <Zap className="w-6 h-6" />
                             </div>
                             <div>
                                 <h3 className="text-2xl font-bold text-gray-900">Trust Gap</h3>
-                                <p className="text-gray-500 text-sm mt-1">Sentiment gap between Leaders vs. Junior Staff.</p>
+                                <p className="text-gray-500 text-sm mt-1">Sentiment variance between High Performers vs. Low Performers</p>
                             </div>
                         </div>
                         <span className="bg-purple-50 text-purple-700 px-4 py-2 rounded-lg text-sm font-bold tracking-wide uppercase border border-purple-100">
-                            Disconnected
+                            Variance Detected
                         </span>
                     </div>
 
@@ -163,13 +163,17 @@ export const Screen5_Sliders: React.FC<Screen5Props> = ({ onNext }) => {
                             />
                         </div>
                         <div className="flex justify-between mt-4 font-bold text-sm">
-                            <span className="text-purple-700">Juniors</span>
-                            <span className="text-gray-400">Leaders</span>
+                            <span className="text-purple-700">Low Performers</span>
+                            <span className="text-gray-400">High Performers</span>
                         </div>
                     </div>
-                    <p className="text-gray-400 text-sm mt-4">
-                        <strong>Impact:</strong> High variance ({'>'}30%) creates "Toxic Pockets" where low performers disengage while leaders remain unaware.
-                    </p>
+
+                    <div className="mt-8 bg-blue-50/50 rounded-xl p-4 flex items-start space-x-3">
+                        <Info className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                        <p className="text-sm text-blue-800">
+                            <strong>Why we ask:</strong> A high trust gap ({'>'} 30%) indicates that high performers see things very differently than struggling team members. This creates "invisible friction" where disengagement festers undetected in certain pockets of your organization.
+                        </p>
+                    </div>
                 </div>
 
             </div>
