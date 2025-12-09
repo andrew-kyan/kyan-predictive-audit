@@ -799,7 +799,7 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
 
                                 {/* Feature 2: Smart Rollout */}
                                 <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all group">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-purple-500/40 group-hover:shadow-purple-500/60 transition-shadow">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-emerald-400 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-teal-500/40 group-hover:shadow-teal-500/60 transition-shadow">
                                         <CalendarCheck className="w-8 h-8 text-white" />
                                     </div>
                                     <h4 className="text-xl font-bold text-white mb-2">Smart Rollout</h4>
@@ -807,10 +807,10 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                                         Pre-built 4-week timeline. Launch faster with proven templates.
                                     </p>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold rounded border border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.2)]">Week 1</span>
-                                        <span className="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold rounded border border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.2)]">Week 2</span>
-                                        <span className="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold rounded border border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.2)]">Week 3</span>
-                                        <span className="px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold rounded border border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.2)]">Week 4</span>
+                                        <span className="px-2 py-1 bg-teal-500/20 text-teal-300 text-[10px] font-bold rounded border border-teal-500/30 shadow-[0_0_10px_rgba(20,184,166,0.2)]">Week 1</span>
+                                        <span className="px-2 py-1 bg-teal-500/20 text-teal-300 text-[10px] font-bold rounded border border-teal-500/30 shadow-[0_0_10px_rgba(20,184,166,0.2)]">Week 2</span>
+                                        <span className="px-2 py-1 bg-teal-500/20 text-teal-300 text-[10px] font-bold rounded border border-teal-500/30 shadow-[0_0_10px_rgba(20,184,166,0.2)]">Week 3</span>
+                                        <span className="px-2 py-1 bg-teal-500/20 text-teal-300 text-[10px] font-bold rounded border border-teal-500/30 shadow-[0_0_10px_rgba(20,184,166,0.2)]">Week 4</span>
                                     </div>
                                 </div>
 
