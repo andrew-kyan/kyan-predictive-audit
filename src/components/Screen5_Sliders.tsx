@@ -11,6 +11,23 @@ export const Screen5_Sliders: React.FC<Screen5Props> = ({ onNext }) => {
     const [sickLeaveType, setSickLeaveType] = useState<'reactive' | 'post-deadline' | 'chronic'>('post-deadline');
     const [trustGap, setTrustGap] = useState(50);
 
+    // Dynamic risk calculation for Vacation Utilization
+    const getVacationRisk = () => {
+        if (vacationUtil >= 70) return { label: 'Low Risk', color: 'green' };
+        if (vacationUtil >= 40) return { label: 'Moderate Risk', color: 'orange' };
+        return { label: 'High Risk', color: 'red' };
+    };
+
+    // Dynamic risk calculation for Trust Gap
+    const getTrustGapRisk = () => {
+        if (trustGap < 20) return { label: 'Low Variance', color: 'green' };
+        if (trustGap < 40) return { label: 'Moderate Variance', color: 'orange' };
+        return { label: 'High Variance', color: 'red' };
+    };
+
+    const vacationRisk = getVacationRisk();
+    const trustGapRisk = getTrustGapRisk();
+
     return (
         <div className="flex-grow flex flex-col items-center justify-center p-8 w-full max-w-5xl mx-auto z-10 pb-32">
             <div className="text-center mb-12">
@@ -35,8 +52,11 @@ export const Screen5_Sliders: React.FC<Screen5Props> = ({ onNext }) => {
                                 <p className="text-gray-500 text-sm mt-1">What percentage of your employees use 100% of their PTO?</p>
                             </div>
                         </div>
-                        <span className="bg-orange-50 text-orange-600 px-4 py-2 rounded-lg text-sm font-bold tracking-wide uppercase border border-orange-100">
-                            Moderate Risk
+                        <span className={`px-4 py-2 rounded-lg text-sm font-bold tracking-wide uppercase border ${vacationRisk.color === 'green' ? 'bg-green-50 text-green-600 border-green-100' :
+                                vacationRisk.color === 'orange' ? 'bg-orange-50 text-orange-600 border-orange-100' :
+                                    'bg-red-50 text-red-600 border-red-100'
+                            }`}>
+                            {vacationRisk.label}
                         </span>
                     </div>
 
@@ -142,8 +162,11 @@ export const Screen5_Sliders: React.FC<Screen5Props> = ({ onNext }) => {
                                 <p className="text-gray-500 text-sm mt-1">Sentiment variance between High Performers vs. Low Performers</p>
                             </div>
                         </div>
-                        <span className="bg-purple-50 text-purple-700 px-4 py-2 rounded-lg text-sm font-bold tracking-wide uppercase border border-purple-100">
-                            Variance Detected
+                        <span className={`px-4 py-2 rounded-lg text-sm font-bold tracking-wide uppercase border ${trustGapRisk.color === 'green' ? 'bg-green-50 text-green-600 border-green-100' :
+                                trustGapRisk.color === 'orange' ? 'bg-orange-50 text-orange-600 border-orange-100' :
+                                    'bg-red-50 text-red-600 border-red-100'
+                            }`}>
+                            {trustGapRisk.label}
                         </span>
                     </div>
 
