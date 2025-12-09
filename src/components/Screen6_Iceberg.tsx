@@ -149,19 +149,6 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
             {/* Header */}
             <div className="w-full flex justify-between items-end mb-12">
                 <div>
-                    <div className="mb-6">
-                        {/* Kyan Health Logo */}
-                        <img
-                            src="/kyan-logo.png"
-                            alt="Kyan Health"
-                            className="h-8 mb-4 object-contain"
-                        />
-                        <div className="flex items-center space-x-2 mb-6">
-                            {/* Removed text logo in favor of the image above */}
-                        </div>
-                    </div>
-
-
                     <h1 className="text-5xl md:text-6xl font-bold text-gray-900 tracking-tight mb-2">Organizational <br /> Health Audit</h1>
                     <p className="text-gray-500 text-lg">Analysis based on 250 employees in the Technology sector.</p>
                 </div>
@@ -746,57 +733,81 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                         <div className="flex-grow border-t border-gray-200"></div>
                     </div>
 
-                    {/* Feature Cards Grid */}
-                    <div className="grid md:grid-cols-3 gap-6">
-
-                        {/* Card 1: AI Asset Studio */}
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all hover:-translate-y-1">
-                            <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-                                <Wand2 className="w-7 h-7 text-blue-600" />
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">AI Asset Studio</h3>
-                            <p className="text-gray-500 text-sm leading-relaxed mb-3">
-                                Instantly create posters, slide decks, and emails.
+                    {/* Single Consolidated Feature Card */}
+                    <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-10 md:p-12">
+                        <div className="text-center mb-10">
+                            <h3 className="text-3xl font-bold text-gray-900 mb-3">Complete Wellbeing Platform</h3>
+                            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+                                Everything you need to launch, manage, and scale your organizational health program
                             </p>
-                            <div className="pt-3 border-t border-gray-100">
-                                <p className="text-xs text-blue-600 font-semibold">
-                                    Generate on-brand content in seconds with AI-powered design tools
-                                </p>
-                            </div>
                         </div>
 
-                        {/* Card 2: Smart Rollout */}
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all hover:-translate-y-1">
-                            <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-                                <CalendarCheck className="w-7 h-7 text-purple-600" />
+                        <div className="space-y-8">
+                            {/* Feature 1: AI Asset Studio */}
+                            <div className="flex flex-col md:flex-row items-start gap-6 p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+                                <div className="flex-shrink-0">
+                                    <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                                        <Wand2 className="w-10 h-10 text-white" />
+                                    </div>
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="text-2xl font-bold text-gray-900 mb-2">AI Asset Studio</h4>
+                                    <p className="text-gray-600 mb-3 leading-relaxed">
+                                        Instantly create posters, slide decks, and emails. Generate on-brand content in seconds with AI-powered design tools.
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">Posters</span>
+                                        <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">Slide Decks</span>
+                                        <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">Email Templates</span>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">Smart Rollout</h3>
-                            <p className="text-gray-500 text-sm leading-relaxed mb-3">
-                                Pre-built 4-week implementation timeline.
-                            </p>
-                            <div className="pt-3 border-t border-gray-100">
-                                <p className="text-xs text-purple-600 font-semibold">
-                                    Launch faster with proven templates and automated scheduling
-                                </p>
+
+                            <div className="border-t border-gray-200"></div>
+
+                            {/* Feature 2: Smart Rollout */}
+                            <div className="flex flex-col md:flex-row items-start gap-6 p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+                                <div className="flex-shrink-0">
+                                    <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                                        <CalendarCheck className="w-10 h-10 text-white" />
+                                    </div>
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="text-2xl font-bold text-gray-900 mb-2">Smart Rollout</h4>
+                                    <p className="text-gray-600 mb-3 leading-relaxed">
+                                        Pre-built 4-week implementation timeline. Launch faster with proven templates and automated scheduling.
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Week 1: Launch</span>
+                                        <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Week 2: Activate</span>
+                                        <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Week 3: Engage</span>
+                                        <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Week 4: Measure</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="border-t border-gray-200"></div>
+
+                            {/* Feature 3: Co-Branded Hub */}
+                            <div className="flex flex-col md:flex-row items-start gap-6 p-6 rounded-2xl hover:bg-gray-50 transition-colors">
+                                <div className="flex-shrink-0">
+                                    <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+                                        <Palette className="w-10 h-10 text-white" />
+                                    </div>
+                                </div>
+                                <div className="flex-1">
+                                    <h4 className="text-2xl font-bold text-gray-900 mb-2">Co-Branded Hub</h4>
+                                    <p className="text-gray-600 mb-3 leading-relaxed">
+                                        Your logo and tone applied automatically. Maintain brand consistency across all employee communications.
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full">Custom Branding</span>
+                                        <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full">Tone Control</span>
+                                        <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full">White Label</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        {/* Card 3: Co-Branded Hub */}
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all hover:-translate-y-1">
-                            <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
-                                <Palette className="w-7 h-7 text-orange-600" />
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">Co-Branded Hub</h3>
-                            <p className="text-gray-500 text-sm leading-relaxed mb-3">
-                                Your logo and tone applied automatically.
-                            </p>
-                            <div className="pt-3 border-t border-gray-100">
-                                <p className="text-xs text-orange-600 font-semibold">
-                                    Maintain brand consistency across all employee communications
-                                </p>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
