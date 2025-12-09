@@ -737,12 +737,12 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                     <div className="w-full relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100">
 
                         {/* Split Background - Light top, dark bottom like iceberg */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-indigo-50 to-indigo-100 h-[30%] z-0"></div>
-                        <div className="absolute inset-0 top-[30%] bg-gradient-to-b from-[#1e1b4b] via-[#312e81] to-[#1e1b4b] z-0"></div>
+                        <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-cyan-50 h-[30%] z-0"></div>
+                        <div className="absolute inset-0 top-[30%] bg-gradient-to-b from-[#003B4D] via-[#002633] to-[#001E2B] z-0"></div>
 
                         {/* Animated Wave Separator */}
                         <div className="absolute top-[30%] left-0 right-0 -translate-y-1/2 z-10">
-                            <svg className="w-full h-12 md:h-20 fill-[#1e1b4b]" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                            <svg className="w-full h-12 md:h-20 fill-[#003B4D]" viewBox="0 0 1440 320" preserveAspectRatio="none">
                                 <motion.path
                                     animate={{
                                         d: [
@@ -759,7 +759,7 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
                         {/* Abstract Floating Shapes */}
                         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
                             {/* Glowing orb top-right */}
-                            <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-purple-400/30 to-pink-400/20 rounded-full blur-2xl"></div>
+                            <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-cyan-400/30 to-teal-400/20 rounded-full blur-2xl"></div>
                             {/* Glowing orb bottom-left */}
                             <div className="absolute bottom-20 left-10 w-40 h-40 bg-gradient-to-br from-cyan-400/20 to-blue-400/30 rounded-full blur-3xl"></div>
                         </div>
@@ -768,12 +768,12 @@ export const Screen6_Iceberg: React.FC<Screen6Props> = ({ onNext }) => {
 
                             {/* Header on light section */}
                             <div className="text-center mb-12">
-                                <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-indigo-200 mb-4">
-                                    <Layers className="w-4 h-4 text-indigo-600" />
-                                    <span className="text-indigo-600 text-xs font-bold uppercase tracking-widest">Kyan Engage</span>
+                                <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-cyan-200 mb-4">
+                                    <Layers className="w-4 h-4 text-cyan-600" />
+                                    <span className="text-cyan-600 text-xs font-bold uppercase tracking-widest">Kyan Engage</span>
                                 </div>
                                 <h3 className="text-3xl md:text-4xl font-black text-gray-900 mb-2 tracking-tight">Complete Wellbeing Platform</h3>
-                                <p className="text-indigo-600/70 text-lg max-w-2xl mx-auto font-medium">
+                                <p className="text-cyan-600/70 text-lg max-w-2xl mx-auto font-medium">
                                     Everything you need to launch and scale
                                 </p>
                             </div>
